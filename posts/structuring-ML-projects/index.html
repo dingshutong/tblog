@@ -113,4 +113,111 @@ Pull all your data and then randomly shuffle them and split them into dev/test. 
 <h2 id="when-to-change-devtest-sets-and-metrics" style="position:relative;"><a href="#when-to-change-devtest-sets-and-metrics" aria-label="when to change devtest sets and metrics permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>When to change dev/test sets and metrics</h2>
 <p>Sometimes partway through a project you might realize you put your target in the wrong place. In that case you should move your target. </p>
 <p>For example, if it is doing well on your metric + dev/test sets does not correspond to doing well on your application, change your metric and/or dev/test sets.</p>
-<p>If your current metric and data you are evaluating on doesn’t correspond to doing well on what you actually care about, then change your metrics and/or your dev/test set to better capture what you need your algorithm to actually do well on.</p></div></div></div><div class="Post-module--post__footer--3WzWU"><div><p class="Meta-module--meta__date--29eD7">Published <!-- -->Feb 9, 2021</p></div><div class="Tags-module--tags--1L_ct"><ul class="Tags-module--tags__list--91FqN"><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tblog/tag/machine-learning/">Machine Learning</a></li></ul></div><div class="Author-module--author--2Yefr"><p>Try to build my personal knowledge base here. Write down my own thoughts and my learning notes on data modeling, AI, programming and more.<a class="Author-module--author__bio-twitter--n-O9n" href="https://www.twitter.com/#" rel="noopener noreferrer" target="_blank"><strong>Shutong Ding</strong> on Twitter</a></p></div></div><div class="Post-module--post__comments--25y6I"></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/structuring-ML-projects";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-64a2a5ba1fc84f7adec6.js"],"app":["/app-995b9a4d34b4a4dfe324.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-241020a1cf7d0f317bbe.js"],"component---src-templates-categories-list-template-js":["/component---src-templates-categories-list-template-js-eadb914010875380852b.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-2e143570af75e2ea502c.js"],"component---src-templates-index-template-js":["/component---src-templates-index-template-js-7d46e98ff8f673d56b6c.js"],"component---src-templates-not-found-template-js":["/component---src-templates-not-found-template-js-f32b1d58317994f4a3d4.js"],"component---src-templates-page-template-js":["/component---src-templates-page-template-js-1f830ace3dd9af0bc6d5.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-250a1786ab6d1e75076b.js"],"component---src-templates-tag-template-js":["/component---src-templates-tag-template-js-ffeb5d8bd219cd83c614.js"],"component---src-templates-tags-list-template-js":["/component---src-templates-tags-list-template-js-c9a3bdc0c94b613711f2.js"]};/*]]>*/</script><script src="/tblog/polyfill-64a2a5ba1fc84f7adec6.js" nomodule=""></script><script src="/tblog/component---src-templates-post-template-js-250a1786ab6d1e75076b.js" async=""></script><script src="/tblog/cd95ea5cbd2c605f26db819f07999610c9ff4310-babf0c2595a064681f8b.js" async=""></script><script src="/tblog/styles-407fe62976dc5310c43e.js" async=""></script><script src="/tblog/app-995b9a4d34b4a4dfe324.js" async=""></script><script src="/tblog/532a2f07-a2b9837034ae8adfec32.js" async=""></script><script src="/tblog/framework-a4c869fc5235f266498a.js" async=""></script><script src="/tblog/webpack-runtime-32f0b9c60503231016eb.js" async=""></script></body></html>
+<p>If your current metric and data you are evaluating on doesn’t correspond to doing well on what you actually care about, then change your metrics and/or your dev/test set to better capture what you need your algorithm to actually do well on.</p>
+<h2 id="error-analysis" style="position:relative;"><a href="#error-analysis" aria-label="error analysis permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error analysis</h2>
+<p><strong>“Ceiling on performance”</strong> Suppose that it turns out that 5% of your 100 mislabeled dev set examples are pictures of dogs. So, that is, if 5 out of 100 of these mislabeled dev set examples are dogs. Of a typical set of 100 examples you’re getting wrong, even if you completely solve the dog problem, you only get 5 out of 100 more correct. Or in other words, if only 5% of your errors are due to dog pictures, then the best you could easily hope to do is only 5% improvement, if you spend a lot of time on the dog problem. However, if 50 out of 100 of these mislabeled dev set examples are dogs, then 50% of your errors are due to dog pictures, in this case, it might be worth to spend time on the dog problem. </p>
+<p>One could evaluate multiple ideas in parallel. For example, we have some ideas for the improvement of cat detection. And from the percentage of the total mis-classified images, 54% of them have blurry issue which is at most, it is then advisable to improve performance on blurry images.</p>
+<table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Fix dog</th>
+<th>Fix great cats</th>
+<th>Blurry</th>
+<th>Instagram</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>x</td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>pitbull</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+<td>x</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td></td>
+</tr>
+<tr>
+<td>% of total</td>
+<td>5%</td>
+<td><strong>41%</strong></td>
+<td><strong>54%</strong></td>
+<td>15%</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mislabeled exmaples</strong> to refer to if your learning algorithm outputs the wrong value y.
+<strong>Incorrectly labeled examples</strong> to refer to in the dataset you have in the training set or the dev set or the test set, the label for y assigned to this piece of data is incorrect. </p>
+<p>Deep learning algorithms are quite robust to random errors in the training set, but they are less robust to systematic errors. So in general if the incorrectly labeled data are random, then you don’t have to fix those incorrect labels, however, if they are systematic, then you should check and fix them. </p>
+<p>If the incorrect labels are in dev and test set, we can add an extra column called “Incorrectly labeled” to identify them in the error analysis. Apple same process to your dev and test sets to make sure they continue to come from the same distribution. Consider examing examples your algorithm got right as well as ones it got wrong. Notice that, if you go to dev and test data to correct some of the mislabels there, the train and dev/test data may now come from slightly different distribution.</p>
+<h2 id="build-your-first-system-quickly-then-iterate" style="position:relative;"><a href="#build-your-first-system-quickly-then-iterate" aria-label="build your first system quickly then iterate permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build your first system quickly, then iterate</h2>
+<p>In speech recognition example, many issues to tackle: noisy background, accent speech, far from microphone, young children’s speech, stuttering … if you need to build a brand new machine learning application here, you should build your first system quickly and then iterate. First, quickly set dev/test set and its metric; Second, build the intial system quickly; Third, use Bias/Variance analysis and error analysis to prioritize next steps.</p>
+<h2 id="biasvariance-on-mismatched-training-and-devtest-sets" style="position:relative;"><a href="#biasvariance-on-mismatched-training-and-devtest-sets" aria-label="biasvariance on mismatched training and devtest sets permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bias/variance on mismatched training and dev/test sets</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Human level error</td>
+<td>3%</td>
+<td></td>
+</tr>
+<tr>
+<td>Training set error</td>
+<td>8%</td>
+<td>avoidable bias</td>
+</tr>
+<tr>
+<td>Training-dev set error</td>
+<td>10%</td>
+<td>variance</td>
+</tr>
+<tr>
+<td>Dev error</td>
+<td>12%</td>
+<td>data mismatch</td>
+</tr>
+<tr>
+<td>Test error</td>
+<td>13%</td>
+<td>degrees of over-fitting</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transfer-learning" style="position:relative;"><a href="#transfer-learning" aria-label="transfer learning permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Transfer learning</h2>
+<p>Artifical data synthesis, pre-training, fine-tuning, transfer learning. Transfer learning will make sense if you have reasonable large data in your pre-training set, and you have quite small data in your fine-tuning set. In general the transfer learning from Task A to Task B makes sense if: Task A and B have the same input X; You have a lot more data in A than in B; low level features from A could be helpful for learning B.</p>
+<h2 id="multi-task-learning" style="position:relative;"><a href="#multi-task-learning" aria-label="multi task learning permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multi-task learning</h2>
+<p>When multi-tasking learning make sense: Training on a set of tasks that could benefit from having shared lower-level features; Amount of data you have for each task is quite similar; can train a big enough neural network to do well on all tasks. Otherwise, train a separate neural network for each task.</p>
+<h2 id="end-to-end-deep-learning" style="position:relative;"><a href="#end-to-end-deep-learning" aria-label="end to end deep learning permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>End-to-end deep learning</h2>
+<p>There have been some data processing systems, or learning systems that require multiple stages of processing. And what end-to-end deep learning does, is that it can take all those multiple stages, and replace it usually with just a single neural network. </p>
+<p>Pros: Let the data speak. Less hand-designing of components needed. Cons: May need large amount data. Exclude potentially useful hand-designed components. Data and hand-design. Hand-design allows humans to inject a lot of knowledge about the problem. Key question: Do you have sufficient data to learn a function of complexity needed to map from X to Y?</p></div></div></div><div class="Post-module--post__footer--3WzWU"><div><p class="Meta-module--meta__date--29eD7">Published <!-- -->Feb 27, 2021</p></div><div class="Tags-module--tags--1L_ct"><ul class="Tags-module--tags__list--91FqN"><li class="Tags-module--tags__list-item--1M30P"><a class="Tags-module--tags__list-item-link--3SL_8" href="/tblog/tag/machine-learning/">Machine Learning</a></li></ul></div><div class="Author-module--author--2Yefr"><p>Try to build my personal knowledge base here. Write down my own thoughts and my learning notes on data modeling, AI, programming and more.<a class="Author-module--author__bio-twitter--n-O9n" href="https://www.twitter.com/#" rel="noopener noreferrer" target="_blank"><strong>Shutong Ding</strong> on Twitter</a></p></div></div><div class="Post-module--post__comments--25y6I"></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/posts/structuring-ML-projects";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-64a2a5ba1fc84f7adec6.js"],"app":["/app-995b9a4d34b4a4dfe324.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-241020a1cf7d0f317bbe.js"],"component---src-templates-categories-list-template-js":["/component---src-templates-categories-list-template-js-eadb914010875380852b.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-2e143570af75e2ea502c.js"],"component---src-templates-index-template-js":["/component---src-templates-index-template-js-7d46e98ff8f673d56b6c.js"],"component---src-templates-not-found-template-js":["/component---src-templates-not-found-template-js-f32b1d58317994f4a3d4.js"],"component---src-templates-page-template-js":["/component---src-templates-page-template-js-1f830ace3dd9af0bc6d5.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-250a1786ab6d1e75076b.js"],"component---src-templates-tag-template-js":["/component---src-templates-tag-template-js-ffeb5d8bd219cd83c614.js"],"component---src-templates-tags-list-template-js":["/component---src-templates-tags-list-template-js-c9a3bdc0c94b613711f2.js"]};/*]]>*/</script><script src="/tblog/polyfill-64a2a5ba1fc84f7adec6.js" nomodule=""></script><script src="/tblog/component---src-templates-post-template-js-250a1786ab6d1e75076b.js" async=""></script><script src="/tblog/cd95ea5cbd2c605f26db819f07999610c9ff4310-babf0c2595a064681f8b.js" async=""></script><script src="/tblog/styles-407fe62976dc5310c43e.js" async=""></script><script src="/tblog/app-995b9a4d34b4a4dfe324.js" async=""></script><script src="/tblog/532a2f07-a2b9837034ae8adfec32.js" async=""></script><script src="/tblog/framework-a4c869fc5235f266498a.js" async=""></script><script src="/tblog/webpack-runtime-32f0b9c60503231016eb.js" async=""></script></body></html>
